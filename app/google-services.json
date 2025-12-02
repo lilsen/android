@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "294703735903",
+    "project_id": "proyecttheremin-69601",
+    "storage_bucket": "proyecttheremin-69601.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:294703735903:android:9937dc2e72c1dfb63727ea",
+        "android_client_info": {
+          "package_name": "com.example.proyecttheremin"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzqBBImHK7j-UNnyOh33sya8F41B8MgCA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:294703735903:android:3bd9ddc61d9d82e53727ea",
+        "android_client_info": {
+          "package_name": "com.example.seguridadapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzqBBImHK7j-UNnyOh33sya8F41B8MgCA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
