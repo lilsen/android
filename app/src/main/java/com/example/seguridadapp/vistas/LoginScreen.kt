@@ -36,13 +36,13 @@ fun LoginScreen(navController: NavController, auth: FirebaseAuth) {
         ) {
             // Título principal
             Text(
-                text = "Theremin",
+                text = "Theremin Security",
                 style = MaterialTheme.typography.headlineMedium,
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center
             )
             Text(
-                text = "Log In",
+                text = "Iniciar Sesión",
                 style = MaterialTheme.typography.titleMedium,
                 textAlign = TextAlign.Center
             )
@@ -54,7 +54,7 @@ fun LoginScreen(navController: NavController, auth: FirebaseAuth) {
                 value = email,
                 onValueChange = { email = it },
                 label = { Text("Correo electrónico") },
-                placeholder = { Text("Nombre de la red") },
+                placeholder = { Text("ejemplo@correo.com") },
                 singleLine = true,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
                 modifier = Modifier.fillMaxWidth()
@@ -62,12 +62,11 @@ fun LoginScreen(navController: NavController, auth: FirebaseAuth) {
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Campo de contraseña (sin opción de mostrar)
+            // Campo de contraseña
             OutlinedTextField(
                 value = password,
                 onValueChange = { password = it },
                 label = { Text("Contraseña") },
-                placeholder = { Text("Contraseña") },
                 singleLine = true,
                 visualTransformation = PasswordVisualTransformation(),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
@@ -76,12 +75,14 @@ fun LoginScreen(navController: NavController, auth: FirebaseAuth) {
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            // Enlaces de recuperación y registro
+            // Enlaces
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Text("¿Olvidaste tu contraseña?")
+                TextButton(onClick = { /* Lógica recuperar */ }) {
+                    Text("¿Olvidaste tu contraseña?", style = MaterialTheme.typography.bodySmall)
+                }
                 TextButton(onClick = { navController.navigate("register") }) {
                     Text("Registrarse")
                 }
@@ -98,10 +99,8 @@ fun LoginScreen(navController: NavController, auth: FirebaseAuth) {
                     .fillMaxWidth()
                     .height(50.dp)
             ) {
-                Text("Conectar")
+                Text("INGRESAR")
             }
-
-            Spacer(modifier = Modifier.height(16.dp))
         }
     }
 }
@@ -116,14 +115,20 @@ private fun validarCredencial(
     if (email.isNotBlank() && password.isNotBlank()) {
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                Toast.makeText(context, "Inicio de sesión correcto", Toast.LENGTH_SHORT).show()
-                navController.popBackStack()
-                navController.navigate("home/${email}?connected=false")
+                Toast.makeText(context, "Bienvenido", Toast.LENGTH_SHORT).show()
+
+                // --- CAMBIO IMPORTANTE AQUÍ ---
+                // No vamos al home directo. Vamos a validar la conexión física.
+                navController.navigate("conectar") {
+                    // Borramos el login del historial para que no vuelva atrás
+                    popUpTo("login") { inclusive = true }
+                }
+
             } else {
-                Toast.makeText(context, "Error de inicio de sesión", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Error: Verifica tus datos", Toast.LENGTH_SHORT).show()
             }
         }
     } else {
-        Toast.makeText(context, "Ingresa el correo y la contraseña", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, "Por favor completa los campos", Toast.LENGTH_SHORT).show()
     }
 }
