@@ -45,7 +45,7 @@ android {
 }
 
 dependencies {
-
+    // 1. LIBRERIAS BASE DE ANDROID
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -55,11 +55,19 @@ dependencies {
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.navigation.compose)
-    //libreria fasebase para conectarse
-    implementation(libs.firebase.auth)
     implementation("androidx.compose.material:material-icons-extended")
-    implementation(libs.androidx.material3)
-    implementation(libs.androidx.compose.runtime)
+    implementation("androidx.compose.material3:material3:1.2.0")
+
+    // 2. GSON (Para leer datos del ESP)
+    implementation("com.google.code.gson:gson:2.10.1")
+
+    // 3. FIREBASE (Versión 32.7.0 para asegurar compatibilidad)
+    implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
+    implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-auth-ktx")
+    implementation("com.google.firebase:firebase-database-ktx") // <--- ESTA ES LA QUE TE FALTABA
+
+    // 4. TEST (No los toques)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -67,7 +75,4 @@ dependencies {
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
-    implementation("androidx.compose.material3:material3:1.2.0")
-    implementation(platform("com.google.firebase:firebase-bom:34.4.0"))
-    implementation("com.google.firebase:firebase-analytics")
 }
